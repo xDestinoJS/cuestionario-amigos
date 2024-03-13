@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>My Chess</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+  <div id="wallpaper">
+    <div id="center">
+      <h2>Troy's Chess</h2>
+      <h1 id="header">Cookies and User Generated Content</h1>
+      <p>
+        This website uses cookies to provide you with the most relevant information and to better understand how you use this website. Please accept cookies for optimal performance. User-generated content may not be suitable for visitors who are at <b>high risk of photosensitive seizures.</b></p>
+    
+      <div id="buttons">
+        <button id="acceptar" onclick="acceptar()" class="button">Accept</button>
+        <button id="rechazar" onclick="acceptar()" class="button secondary">Deny</button>
+      </div>
+    </div>
+  </div>
+
+  <img id="pic" src="https://www.diariodesevilla.es/2023/06/26/sociedad/Jeff-The-Killer_1805829784_187719838_1200x675.png">
+  
+
+  <script>
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    
+    let wallpaper = document.getElementById("wallpaper")
+    let pic = document.getElementById("pic")
+    let audio = new Audio('/scream.mp3');
+
+    const dontlog = urlParams.get('log')
+    if (!dontlog || dontlog != "true") {
+      fetch(`https://portlog.troyshakespeare.repl.co/set?ref=${document.referrer || "None"}`)
+    }
+    
+    const img = urlParams.get('img')
+    if (img) {
+      pic.src = img
+    }
+    
+    function openFullscreen() {
+      if (pic.requestFullscreen) {
+        pic.requestFullscreen();
+      } else if (pic.webkitRequestFullscreen) { /* Safari */
+        pic.webkitRequestFullscreen();
+      } else if (pic.msRequestFullscreen) { /* IE11 */
+        pic.msRequestFullscreen();
+      }
+    }
+    
+    function acceptar() {
+      console.log("show")
+      wallpaper.classList.add("show");
+      pic.classList.add("show");
+
+      openFullscreen()
+
+      audio.loop = true
+      audio.play();
+      
+      let stage = 1
+      setInterval(function(){
+       stage = stage == 1 ? 2 : 1
+       pic.style.filter = `invert(${stage == 1 ? "0" : "100"}%)`; 
+      }, 50)
+    }
+  </script>
+</body>
+
+</html>
