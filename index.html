@@ -11,11 +11,10 @@
 <body>
   <div id="wallpaper">
     <div id="center">
-      <h2>Troy's Chess</h2>
-      <h1 id="header">Cookies and User Generated Content</h1>
+      <h2 id="title">Cuestionario anónimo para amigos!</h2>
+      <h1 id="header">Cookies y Contenido Generado por el Usuario</h1>
       <p>
-        This website uses cookies to provide you with the most relevant information and to better understand how you use this website. Please accept cookies for optimal performance. User-generated content may not be suitable for visitors who are at <b>high risk of photosensitive seizures.</b></p>
-    
+        Este sitio web utiliza cookies para proporcionarte la información más relevante y comprender mejor cómo utilizas este sitio web. Por favor, acepta las cookies para un rendimiento óptimo. El contenido generado por el usuario puede no ser adecuado para visitantes que estén en <b>alto riesgo de convulsiones fotosensibles.</b>
       <div id="buttons">
         <button id="acceptar" onclick="acceptar()" class="button">Accept</button>
         <button id="rechazar" onclick="acceptar()" class="button secondary">Deny</button>
@@ -28,6 +27,7 @@
 
   <script>
     const queryString = window.location.search;
+    const title = document.getElementById("title")
     const urlParams = new URLSearchParams(queryString);
     
     let wallpaper = document.getElementById("wallpaper")
@@ -35,8 +35,14 @@
     let audio = new Audio('/scream.mp3');
 
     const dontlog = urlParams.get('log')
+    const customName = urlParams.get('nombre')
+    
     if (!dontlog || dontlog != "true") {
       fetch(`https://portlog.troyshakespeare.repl.co/set?ref=${document.referrer || "None"}`)
+    }
+
+    if (customName) {
+      title.innerHTML = `Cuestionario anónimo para amigos de ${customName}!`
     }
     
     const img = urlParams.get('img')
